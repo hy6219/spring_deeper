@@ -8,7 +8,8 @@ import hello.core.member.MemberServiceImpl;
 public class MemberApp {
     //psvm 엔터 해도 main 메서드 만들어짐
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
         // 변수 없이 "new 생성자" 상태에서 ctrl + alt + v ==> 객체타입 객체명선택 옵션 창이 뜸
         memberService.join(new Member(1L,"김밥", Grade.VIP));
 
