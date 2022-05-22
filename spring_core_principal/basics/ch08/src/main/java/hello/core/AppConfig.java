@@ -7,9 +7,14 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 //AppConfig: 객체 생성과 연결을 담당
 //=>(1)객체 생성, 연결 역할 (2) 실행하는 역할 이 두가지가 명확하게 분리됨
+
+//순수자바에서 스프링 도입
+@Configuration
 public class AppConfig {
 
     //member repository도 역할과 구현분리가 필요함
@@ -18,20 +23,24 @@ public class AppConfig {
 
     //구현체의 입장에서는, '의존관계에 대한 고민을 외부에 맡기고', '실행에만 집중'
     //구현체 입장에서는, 의존관계를 외부에서 주입해주는 것 같다고 해서 "DI; 의존관계 주입" 이라고 부름
-    public MemberService memberService(){
+    @Bean
+    public MemberService memberService() {
         return new MemberServiceImpl(getMemberRepository());//생성자 주입
     }
 
-    private MemoryMemberRepository getMemberRepository() {
+    @Bean
+    public MemoryMemberRepository getMemberRepository() {
         return new MemoryMemberRepository();
     }
 
-
-    public OrderService orderService(){
+    @Bean
+    public OrderService orderService() {
         return new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
     }
 
-    private DiscountPolicy getDiscountPolicy() {
+    //참고로, @Bean을 붙이려면 접근제한자는 private이어서는 안됨
+    @Bean
+    public DiscountPolicy getDiscountPolicy() {
         return new RateDiscountPolicy();
     }
 
