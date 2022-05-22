@@ -1,6 +1,7 @@
 package hello.core;
 
-import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
@@ -30,14 +31,19 @@ public class AppConfig {
         return new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
     }
 
-    private FixDiscountPolicy getDiscountPolicy() {
-        return new FixDiscountPolicy();
+    private DiscountPolicy getDiscountPolicy() {
+        return new RateDiscountPolicy();
     }
 
     /*
     리팩토링을 통해서
     =>메서드 명으로 역할이 드러남
     그리고 그 역할에 대한 구현도 한눈에 확인이 가능해짐
+    -------------------------------------------------------------------------------
+    AppConfig의 등장
+    - 애플리케이션이 사용영역과(ServiceImpl, ~Policy) 구성영역(AppConfig)으로 구분됨
+    - 할인정책을 변경하고 싶다면, 사용영역의 변경에 영향을 주지 않고, 구성영역만 변경해주면 됨
+    - 배우를 교체해줌
      */
 
 }

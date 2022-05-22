@@ -3,7 +3,6 @@ package hello.core;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
 
 public class MemberApp {
     //psvm 엔터 해도 main 메서드 만들어짐

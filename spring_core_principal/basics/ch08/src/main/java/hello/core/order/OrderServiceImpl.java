@@ -3,7 +3,6 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{
 
@@ -15,6 +14,8 @@ public class OrderServiceImpl implements OrderService{
     //-> '누군가' 클라이언트인 OrderServiceImpl에 DiscountPolicy의 구현객체를 대신 생성하고 주입해주어야 함
     //어떤 구현체가 할당될 지는 어플리케이션이 할당해주어야 함(관심사 분리)
 
+    //=>app config를 통해서 추상화되었고, 구현을 모르는 상태라서 DIP가 지켜짐
+    //appconfig를 통해서 클라이언트는 확장에 열려있고(기능 추가 / 수정 ok), 변경(해당 기능을 활용하는 코드를 변경)에는 닫혀 있음 --> OCP 만족
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
