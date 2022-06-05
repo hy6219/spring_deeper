@@ -30,4 +30,9 @@ public class OrderServiceImpl implements OrderService{
         //지금은 단일책임원칙이 잘 지켜진 설계
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+    //테스트 용도라서 인터페이스에 기재해두지는 않을 것
+    public MemberRepository getMemberRepository(){
+        return this.memberRepository;
+    }
 }

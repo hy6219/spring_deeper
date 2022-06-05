@@ -25,16 +25,19 @@ public class AppConfig {
     //구현체 입장에서는, 의존관계를 외부에서 주입해주는 것 같다고 해서 "DI; 의존관계 주입" 이라고 부름
     @Bean
     public MemberService memberService() {
+        System.out.println("AppConfig.memberService");
         return new MemberServiceImpl(getMemberRepository());//생성자 주입
     }
 
     @Bean
     public MemoryMemberRepository getMemberRepository() {
+        System.out.println("AppConfig.getMemberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService() {
+        System.out.println("AppConfig.orderService");
         return new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
     }
 
