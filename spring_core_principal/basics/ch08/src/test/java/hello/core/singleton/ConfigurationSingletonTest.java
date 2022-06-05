@@ -4,6 +4,7 @@ import hello.core.AppConfig;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberServiceImpl;
 import hello.core.order.OrderServiceImpl;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,5 +23,14 @@ public class ConfigurationSingletonTest {
         System.out.println("memberRepository: " + memberRepository);
         assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
+    }
+
+    @Test
+    @DisplayName("memberRepository가 1번만 호출되는 이유")
+    void configurationDeep() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig config = ac.getBean(AppConfig.class);
+
+        System.out.println("config= " + config.getClass());
     }
 }
