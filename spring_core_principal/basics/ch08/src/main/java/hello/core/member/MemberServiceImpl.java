@@ -1,14 +1,19 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /*
  *구현체가 1개만 있으면 관례상 ~Impl로 많이 네이밍 함
  */
+@Component
 public class MemberServiceImpl implements MemberService{
 
     //ctrl+shift+enter-> ;까지 자동완성됨!!
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
     private final MemberRepository memberRepository;
 
+    @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
