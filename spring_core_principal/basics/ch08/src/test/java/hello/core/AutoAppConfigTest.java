@@ -3,6 +3,7 @@ package hello.core;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
+import hello.core.order.Order;
 import hello.core.order.OrderServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,19 +50,26 @@ class AutoAppConfigTest {
 
     @Test
     @DisplayName("필드 주입")
-    void fieldDi(){
+    void fieldDi() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         OrderServiceImpl bean = ac.getBean(OrderServiceImpl.class);
         MemberRepository memberRepository = bean.getMemberRepository();
-        System.out.println("memberRepository= "+memberRepository);
+        System.out.println("memberRepository= " + memberRepository);
         assertThat(memberRepository).isInstanceOf(MemberRepository.class);
         assertThat(memberRepository).isNotNull();
     }
 
     @Test
     @DisplayName("필드 주입 단점 - 외부에서 변경이 어려움")
-    void fieldDiWeaknessTest(){
+    void fieldDiWeaknessTest() {
         OrderServiceImpl orderService = new OrderServiceImpl();
-        orderService.createOrder(1L,"itemA", 10000);
+        assertThrows(NullPointerException.class, ()->orderService.createOrder(1L, "itemA", 10000));
+    }
+
+    @Test
+    @DisplayName("일반 메서드 주입")
+    void generalMethodDiTest() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+        ac.getBean(OrderServiceImpl.class);
     }
 }
