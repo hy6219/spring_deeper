@@ -7,6 +7,7 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,11 +27,11 @@ public class AppConfig {
     @Bean
     public MemberService memberService() {
         System.out.println("AppConfig.memberService");
-        return new MemberServiceImpl(getMemberRepository());//생성자 주입
+        return new MemberServiceImpl(memberRepository());//생성자 주입
     }
 
     @Bean
-    public MemoryMemberRepository getMemberRepository() {
+    public MemoryMemberRepository memberRepository() {
         System.out.println("AppConfig.getMemberRepository");
         return new MemoryMemberRepository();
     }
@@ -39,12 +40,12 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("AppConfig.orderService");
         //OrderServiceImpl orderService = new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
-        return new OrderServiceImpl();
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     //참고로, @Bean을 붙이려면 접근제한자는 private이어서는 안됨
     @Bean
-    public DiscountPolicy getDiscountPolicy() {
+    public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();
     }
 

@@ -3,6 +3,7 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +21,14 @@ public class OrderServiceImpl implements OrderService{
     //=>app config를 통해서 추상화되었고, 구현을 모르는 상태라서 DIP가 지켜짐
     //appconfig를 통해서 클라이언트는 확장에 열려있고(기능 추가 / 수정 ok), 변경(해당 기능을 활용하는 코드를 변경)에는 닫혀 있음 --> OCP 만족
 
-    @Autowired
+   /* @Autowired
     public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy){
         System.out.println("일반 메서드 주입");
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }*/
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy){
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

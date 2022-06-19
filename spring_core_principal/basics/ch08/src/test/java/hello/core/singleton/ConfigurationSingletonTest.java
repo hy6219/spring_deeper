@@ -16,7 +16,7 @@ public class ConfigurationSingletonTest {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
         MemberServiceImpl memberService = ac.getBean("memberService", MemberServiceImpl.class);
         OrderServiceImpl orderService = ac.getBean("orderService", OrderServiceImpl.class);
-        MemberRepository memberRepository = ac.getBean("getMemberRepository", MemberRepository.class);
+        MemberRepository memberRepository = ac.getBean("memberRepository", MemberRepository.class);
         //getMemberRepository는 구현체에만 존재
         System.out.println("memberService.getMemberRepository()= " + memberService.getMemberRepository());
         System.out.println("orderService.getMemberRepository()= " + orderService.getMemberRepository());

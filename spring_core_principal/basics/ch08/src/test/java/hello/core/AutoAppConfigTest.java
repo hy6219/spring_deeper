@@ -3,7 +3,6 @@ package hello.core;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
-import hello.core.order.Order;
 import hello.core.order.OrderServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,12 +58,12 @@ class AutoAppConfigTest {
         assertThat(memberRepository).isNotNull();
     }
 
-    @Test
+/*    @Test
     @DisplayName("필드 주입 단점 - 외부에서 변경이 어려움")
     void fieldDiWeaknessTest() {
         OrderServiceImpl orderService = new OrderServiceImpl();
         assertThrows(NullPointerException.class, ()->orderService.createOrder(1L, "itemA", 10000));
-    }
+    }*/
 
     @Test
     @DisplayName("일반 메서드 주입")
