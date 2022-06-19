@@ -1,12 +1,15 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
+import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AutoAppConfigTest {
 
@@ -22,6 +25,17 @@ class AutoAppConfigTest {
     void autoScanConflict() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         //ConflictingBeanDefinitionException
-        ac.getBean("discountPolicy", DiscountPolicy.class);
+        assertThrows(Exception.class, ()->ac.getBean("discountPolicy", DiscountPolicy.class));
+    }
+
+    @Test
+    @DisplayName("생성자 주입-생성자가 1개만 존재하는 경우")
+    void justOneConstructor(){
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+        MemberRepository memberRepository = ac.getBean(MemberRepository.class);
+        DiscountPolicy discountPolicy = ac.getBean(DiscountPolicy.class);
+
+        assertThat(memberRepository).isNotNull();
+        assertThat(discountPolicy).isNotNull();
     }
 }
