@@ -46,4 +46,22 @@ class AutoAppConfigTest {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         assertDoesNotThrow(() -> ac.getBean(OrderServiceImpl.class));
     }
+
+    @Test
+    @DisplayName("필드 주입")
+    void fieldDi(){
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+        OrderServiceImpl bean = ac.getBean(OrderServiceImpl.class);
+        MemberRepository memberRepository = bean.getMemberRepository();
+        System.out.println("memberRepository= "+memberRepository);
+        assertThat(memberRepository).isInstanceOf(MemberRepository.class);
+        assertThat(memberRepository).isNotNull();
+    }
+
+    @Test
+    @DisplayName("필드 주입 단점 - 외부에서 변경이 어려움")
+    void fieldDiWeaknessTest(){
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        orderService.createOrder(1L,"itemA", 10000);
+    }
 }

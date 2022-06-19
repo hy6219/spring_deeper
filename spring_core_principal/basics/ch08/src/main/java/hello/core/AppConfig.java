@@ -38,8 +38,8 @@ public class AppConfig {
     @Bean
     public OrderService orderService() {
         System.out.println("AppConfig.orderService");
-        OrderServiceImpl orderService = new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
-        return orderService;
+        //OrderServiceImpl orderService = new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
+        return new OrderServiceImpl();
     }
 
     //참고로, @Bean을 붙이려면 접근제한자는 private이어서는 안됨
