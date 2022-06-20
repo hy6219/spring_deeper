@@ -40,6 +40,7 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("AppConfig.orderService");
         //OrderServiceImpl orderService = new OrderServiceImpl(getMemberRepository(), getDiscountPolicy());
+
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
