@@ -34,7 +34,7 @@ class AutoAppConfigTest {
     void justOneConstructor() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         MemberRepository memberRepository = ac.getBean(MemberRepository.class);
-        DiscountPolicy discountPolicy = ac.getBean(DiscountPolicy.class);
+        DiscountPolicy discountPolicy = ac.getBean("rateDiscountPolicy", DiscountPolicy.class);
 
         assertThat(memberRepository).isNotNull();
         assertThat(discountPolicy).isNotNull();

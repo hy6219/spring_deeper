@@ -8,7 +8,7 @@
     </bean>
     <bean id="discountPolicy" class="hello.core.discount.RateDiscountPolicy"></bean>
     <bean id="orderService" class="hello.core.order.OrderServiceImpl">
-        <constructor-arg name="discountPolicy" ref="discountPolicy"/>
+        <constructor-arg name="rateDiscountPolicy" ref="discountPolicy"/>
         <constructor-arg name="memberRepository" ref="memberRepository"/>
     </bean>
 </beans>
